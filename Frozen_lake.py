@@ -7,9 +7,9 @@ import os
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Save path in same directory
-save_path = os.path.join(script_dir, "frozen_lake_q_table.pkl")
+save_path = os.path.join(script_dir, "frozen_lake_q_table_4x4.pkl")
 
-env = gym.make('FrozenLake-v1', map_name="8x8", is_slippery=True, render_mode='human')
+env = gym.make('FrozenLake-v1', map_name="4x4", is_slippery=True, render_mode='ansi')
 
 # =========================
 # LOAD OR TRAIN
@@ -51,7 +51,7 @@ else:
     # =========================
     # TRAINING LOOP
     # =========================
-    for i in range(500):
+    for i in range(8000):
 
         r = 0
         prev_state = env.reset()[0]
@@ -94,22 +94,33 @@ with open(save_path, "rb") as f:
 print("Q-table loaded successfully!")
 
 # =========================
+# CREATE NEW ENV FOR TESTING
+# =========================
+env = gym.make(
+    'FrozenLake-v1',
+    map_name="4x4",
+    is_slippery=True,
+    render_mode='human'
+)
+
+# =========================
 # TEST TRAINED AGENT
 # =========================
 print("\nTesting trained agent...\n")
 
 state = env.reset()[0]
+
 done = False
+truncated = False
 
-while not done:
+while not done and not truncated:
 
-    print(env.render())
+    env.render()
 
     action = max(range(env.action_space.n), key=lambda a: q[(state, a)])
 
     state, reward, done, truncated, _ = env.step(action)
 
-    if done or truncated:
-        break
+print("Final Reward:", reward)
 
 env.close()
