@@ -2,7 +2,7 @@
 
 A Reinforcement Learning project that trains an agent using **Q-Learning** to solve the FrozenLake environment from Gymnasium.
 
-The agent learns to navigate an 8×8 grid world, avoid holes, and reach the goal using trial-and-error learning.
+The agent learns to navigate an 4×4 grid world, avoid holes, and reach the goal using trial-and-error learning.
 
 ---
 
@@ -11,7 +11,7 @@ The agent learns to navigate an 8×8 grid world, avoid holes, and reach the goal
 This project implements a **tabular Q-Learning algorithm** for the FrozenLake-v1 environment.
 
 - Environment: FrozenLake-v1 (Gymnasium)
-- Grid size: 8x8
+- Grid size: 4x4
 - Algorithm: Q-Learning
 - Policy: Epsilon-Greedy
 - Model storage: Pickle (`.pkl` file)
